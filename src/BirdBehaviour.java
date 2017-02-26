@@ -1,15 +1,16 @@
+
 public class BirdBehaviour implements MoveBehaviour {
+	
 	public void move() {
-		Bird bird = new Bird();
 		
 		int randRow = rand.nextInt((getRows() - 3) + 1) + 0;
     	int randCol = rand.nextInt((getColumns() - 3) + 1) + 0;    	
 		place(bird,randRow, randCol);
 		bird.setDraggable(false);
 		bird.setSpeed(20);
-		updateStockDisplay();
+		board.updateStockDisplay();
 		
-		while(!scareBirds){
+		while(True){
 			DistanceMgr dmgr = new DistanceMgr();
 			int current_row = bird.getRow();
 			int current_col = bird.getColumn();
@@ -18,19 +19,18 @@ public class BirdBehaviour implements MoveBehaviour {
 				for (int i=0;i< getAllPieces().size(); i++) {
 	                Piece piece = getAllPieces().get(i);
 	                int dist_from_food_row = current_row - piece.getRow();
-		                	int dist_from_food_col = piece.getColumn() - current_col;
-		                	Distance d = null;
-		                	if(dist_from_food_row <= dist_from_food_col){
-		                		d = new Distance(bird, (Grain)piece, dist_from_food_row, dist_from_food_col);
-		                	}
-		                	else{
-		               		 	d = new Distance(bird, (Grain)piece, dist_from_food_row, dist_from_food_col);
-		                	}
-		                	dmgr.addDistance(d);
+		            int dist_from_food_col = piece.getColumn() - current_col;
+		            Distance d = null;
+		            if(dist_from_food_row <= dist_from_food_col){
+						d = new Distance(bird, (Grain)piece, dist_from_food_row, dist_from_food_col);
+		            }
+		            else{
+		             	d = new Distance(bird, (Grain)piece, dist_from_food_row, dist_from_food_col);
+		            }
+		            dmgr.addDistance(d);
 	                }
 				}
 			}
-			////
 			
 			Distance distances[] = dmgr.getDistances();
 			boolean movedone = false;
@@ -87,7 +87,6 @@ public class BirdBehaviour implements MoveBehaviour {
 						
 					}
 				}
-				///////
 				else if(d.getRowDist() > d.getColDist()){
 	            	
 					if(d.getColDist() >0){
@@ -142,10 +141,8 @@ public class BirdBehaviour implements MoveBehaviour {
             	int randCol2 = rand.nextInt((getColumns() - 3) + 1) + 0; 
             	bird.moveTo(randRow1, randCol2);
 			}
-			
 		}
 		bird.remove();
-		updateStockDisplay();
-       
-
+		board.updateStockDisplay();
+		
 }
