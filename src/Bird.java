@@ -10,7 +10,9 @@ public class Bird extends Piece {
 	
 	@Override
     public void run() {
+        while(true){
 
+        }
     }
 
     @Override

@@ -1,8 +1,10 @@
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
 
 public class Board extends Observable{
+
+    private int rows;
+    private int columns;
+    protected Vector<Piece> allPieces = new Vector<Piece>();
 	
 	public void registerBirdObserver(Observer){
         for (int i=0;i< getAllPieces().size(); i++) {
@@ -34,7 +36,20 @@ public class Board extends Observable{
     public void notifyObservers() {
         super.notifyObservers();
     }
-	
+
+    public int getRows(){
+        return rows;
+    }
+
+    public int getColumns(){
+        return columns;
+    }
+
+    public Vector<Piece> getAllPieces(){
+        synchronized (allPieces){
+            return allPieces;
+        }
+    }
 	/**
      * Creates a board with the given number of rows and columns. This
      * board is a Swing <code>JPanel</code> and may be used wherever a
@@ -45,6 +60,7 @@ public class Board extends Observable{
      * @param columns
      *        Desired number of columns.
      */
+
     @SuppressWarnings("rawtypes")
 	public Board(int rows, int columns) {
     	rand = new Random();
@@ -95,7 +111,15 @@ public class Board extends Observable{
      */
 	public void fly(){
 		Bird bird = new Bird();
-		bird.move();
+        Thread thread = new Thread(bird);
+        int randRow = rand.nextInt((Board.getRows() - 3) + 1) + 0;
+        int randCol = rand.nextInt((Board.getColumns() - 3) + 1) + 0;
+        place(bird,randRow, randCol);
+        bird.setDraggable(false);
+        bird.setSpeed(20);
+        board.updateStockDisplay();
+        BirdBehaviour.move(bird);
+        thread.start();
 	}
 	
 	/**
