@@ -3,7 +3,7 @@ import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.util.Observable;
+import java.util.Observer;
 
 import Board;
 
@@ -30,8 +30,8 @@ public abstract class Piece implements Runnable, Observer {
 	boolean isSurface;
 	
     public final setBehaviour(MoveBehaviour);
-    public update();
-	public run();
+    //public update();
+	//public run();
 	
 	/**
      * Creates a Piece. The piece is not actually placed on any

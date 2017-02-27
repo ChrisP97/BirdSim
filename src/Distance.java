@@ -1,6 +1,6 @@
-package gla.joose.birdsim.util;
 
-import gla.joose.birdsim.pieces.Piece;
+
+import Piece;
 
 /**
  * A class that represents the distance between two pieces.

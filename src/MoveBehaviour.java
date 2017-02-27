@@ -1,5 +1,5 @@
 
 public interface MoveBehaviour {
 	Board board = null;
-	void move();
+	void move(Bird bird, Board board);
 }

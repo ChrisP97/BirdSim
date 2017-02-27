@@ -1,6 +1,8 @@
 
 public class GrainMovingBehaviour {
-	
+	public GrainMovingBehaviour{
+        Board board =
+    }
     public void move(Grain grain) {
         int randRowf = rand.nextInt((getRows() - 3) + 1) + 0;
         int randColf= rand.nextInt((getColumns() - 3) + 1) + 0;

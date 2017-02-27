@@ -5,7 +5,7 @@ public class Board extends Observable{
     private int rows;
     private int columns;
     protected Vector<Piece> allPieces = new Vector<Piece>();
-	
+	//Redundant as Grain does not need to be aware of Birds
 	public void registerBirdObserver(Observer){
         for (int i=0;i< getAllPieces().size(); i++) {
             Piece piece = getAllPieces().get(i);
@@ -109,7 +109,7 @@ public class Board extends Observable{
      * Creates a new bird and tells it to move. 
      * 
      */
-	public void fly(){
+	public void hatchEgg(){
 		Bird bird = new Bird();
         Thread thread = new Thread(bird);
         int randRow = rand.nextInt((Board.getRows() - 3) + 1) + 0;
@@ -121,6 +121,10 @@ public class Board extends Observable{
         BirdBehaviour.move(bird);
         thread.start();
 	}
+
+	public void feedBirds(){
+
+    }
 	
 	/**
      * updates the number of birds and grains on the board.

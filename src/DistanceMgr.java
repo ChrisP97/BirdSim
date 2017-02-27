@@ -1,4 +1,4 @@
-package gla.joose.birdsim.util;
+
 
 import java.util.Arrays;
 
