@@ -15,8 +15,9 @@ public class BirdBehaviour implements MoveBehaviour {
 	static Random rand = new Random();
 	boolean scareBirds = false;
 	
-	public BirdBehaviour(Board board){
+	public BirdBehaviour(Board board, Bird bird){
 		this.board = board;
+		this.bird = bird;
 	}
 	public void setBirdToBehaviour(Bird bird){
 		this.bird = bird;
@@ -39,11 +40,13 @@ public class BirdBehaviour implements MoveBehaviour {
 			synchronized(board.allPieces){
 				for (int i=0;i< board.getAllPieces().size(); i++) {
 	                Piece piece = board.getAllPieces().get(i);
-	                int dist_from_food_row = current_row - piece.getRow();
-		            int dist_from_food_col = piece.getColumn() - current_col;
-		            Distance d = null;
-					d = new Distance(bird, (Grain)piece, dist_from_food_row, dist_from_food_col);
-		            dmgr.addDistance(d);
+	                if(piece instanceof Grain){
+	                	int dist_from_food_row = current_row - piece.getRow();
+	                	int dist_from_food_col = piece.getColumn() - current_col;
+	                	Distance d = null;
+	                	d = new Distance(bird, (Grain)piece, dist_from_food_row, dist_from_food_col);
+	                	dmgr.addDistance(d);
+		            }
 	            }
 			}
 		}
@@ -152,7 +155,9 @@ public class BirdBehaviour implements MoveBehaviour {
 			}
 		}
 		if(!movedone){ 
-           	bird.moveTo(randRow, randCol);
+			int randRow1 = rand.nextInt((board.getRows() -3) + 1);
+			int randCol1 = rand.nextInt((board.getColumns() -3) + 1);
+           	bird.moveTo(randRow1, randCol1);
 		}
 	bird.remove();
 	board.updateStockDisplay();

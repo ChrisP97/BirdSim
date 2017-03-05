@@ -19,10 +19,10 @@ public class Main extends JFrame {
 		listeners.add(scare);
 		listeners.add(starve);
 		Board board = new Board(50, 50, listeners);
-		MoveBehaviour birdMove = new BirdBehaviour(board);
-		MoveBehaviour grainMove = new GrainMovingBehaviour(board);
-		board.setBirdBehaviour(birdMove);
-		board.setGrainBehaviour(grainMove);
+//		MoveBehaviour birdMove = new BirdBehaviour(board);
+//		MoveBehaviour grainMove = new GrainMovingBehaviour(board);
+//		board.setBirdBehaviour(birdMove);
+//		board.setGrainBehaviour(grainMove);
 		board.initBoard(main);
 	}
 

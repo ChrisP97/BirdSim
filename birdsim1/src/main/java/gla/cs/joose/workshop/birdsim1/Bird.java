@@ -16,9 +16,9 @@ public class Bird extends Piece {
     /**
      * Hatches a <code>Bird</code>.
      **/
-    public Bird(Board board) {
+    public Bird() {
     	color = Color.green;
-    	this.board = board;
+    	
 //    	this.board = board;
     }
     
@@ -54,7 +54,9 @@ public class Bird extends Piece {
 
 	@Override
 	public void run() {
-		behave.move();
+		while(true){
+			behave.move();
+		}
 	}
 
 	@Override

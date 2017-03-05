@@ -202,19 +202,22 @@ public class Board extends Observable {
 	 */
 	public void hatchEgg() {
 
-		Bird bird = new Bird(thisBoard);
-		birdBehaviour.setBirdToBehaviour(bird);
+		Bird bird = new Bird();
+		birdBehaviour = new BirdBehaviour(thisBoard, bird);
 		bird.setBehaviour(birdBehaviour);
+//		birdBehaviour.setBirdToBehaviour(bird);
 		registerBirdObserver(bird);
 		Thread thread = new Thread(bird);
 
-		int randRow = rand.nextInt(((getRows() - 3)+1)+0);
-		int randCol = rand.nextInt(((getColumns() - 3)+1)+0);
-
-		place(bird, randRow, randCol);
-		bird.setDraggable(false);
-		bird.setSpeed(20);
-		updateStockDisplay();
+//		int randRow = rand.nextInt(((getRows() - 3)+1)+0);
+//		int randCol = rand.nextInt(((getColumns() - 3)+1)+0);
+//
+//		place(bird, randRow, randCol);
+//		bird.setDraggable(false);
+//		bird.setSpeed(20);
+		updateStock();
+		setChanged();
+		notifyObservers();
 
 		thread.start();
 	}
@@ -454,6 +457,7 @@ public class Board extends Observable {
 			allPieces.add(piece);
 		}
 		piece.placeHelper(this, row, column);
+		display.repaint();
 	}
 
 	/**
