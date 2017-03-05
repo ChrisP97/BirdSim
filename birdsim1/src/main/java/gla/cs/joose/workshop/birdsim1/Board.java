@@ -116,7 +116,7 @@ public class Board extends Observable {
 		this.listeners = listeners;
 		this.columns = columns;
 		thisBoard = this;
-		display = new DisplayBoard();
+		display = new DisplayBoard(this);
 
 		board = new Vector[rows][columns];
 		for (int i = 0; i < rows; i++) {
@@ -148,7 +148,7 @@ public class Board extends Observable {
 	 *            The JFrame on which the board will be created.
 	 */
 	public void initBoard(final JFrame frame) {
-		JPanel display = getJPanel();
+		JPanel display = thisBoard.getJPanel();
 		frame.getContentPane().add(display, BorderLayout.CENTER);
 		JPanel buttonPanel = new JPanel();
 		frame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
@@ -202,14 +202,14 @@ public class Board extends Observable {
 	 */
 	public void hatchEgg() {
 
-		Bird bird = new Bird();
+		Bird bird = new Bird(thisBoard);
 		birdBehaviour.setBirdToBehaviour(bird);
 		bird.setBehaviour(birdBehaviour);
 		registerBirdObserver(bird);
 		Thread thread = new Thread(bird);
 
-		int randRow = rand.nextInt(getRows() - 2);
-		int randCol = rand.nextInt(getColumns() - 2);
+		int randRow = rand.nextInt(((getRows() - 3)+1)+0);
+		int randCol = rand.nextInt(((getColumns() - 3)+1)+0);
 
 		place(bird, randRow, randCol);
 		bird.setDraggable(false);
@@ -224,7 +224,7 @@ public class Board extends Observable {
 	 */
 	public void feedBirds() {
 
-		Grain grain = new Grain();
+		Grain grain = new Grain(thisBoard);
 		grainBehaviour.setGrainToBehaviour(grain);
 		grain.setBehaviour(grainBehaviour);
 		registerGrainObserver(grain);

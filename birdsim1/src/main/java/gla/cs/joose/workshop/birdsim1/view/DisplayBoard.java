@@ -26,29 +26,11 @@ public class DisplayBoard extends JPanel{
 	public Board board;
 	ArrayList<BoardListener> buttons;
 	
-	public DisplayBoard(){
-//		this.board = b;
-//		b.addObserver(this);
-		createBoard();
+	public DisplayBoard(Board board){
+		this.board = board;
 	}
 	
 	
-	public void addButtons(ArrayList<BoardListener> buttons){
-		for (BoardListener bl: buttons){
-				JButton button = new JButton(bl.getText());
-				bl.setBoard(board);
-				button.addActionListener(bl);
-				this.add(button);
-				
-		}
-	}
-	
-	public void addButton(BoardListener button){
-		buttons.add(button);
-	}
-	public void createBoard(){
-		
-	}
 		
 	/**
      * Repaints this Board and everything on it.
@@ -56,8 +38,8 @@ public class DisplayBoard extends JPanel{
      * @param g
      *        The Graphics context on which this board is painted.
      */
-    public void update(Board b,Graphics g) {
-        paint(b,g);
+    public void update(Graphics g) {
+        paint(g);
     }
 
     /**
@@ -66,11 +48,11 @@ public class DisplayBoard extends JPanel{
      * @param g
      *        The Graphics context on which this board is painted.
      */
-    public void paint(Board b,Graphics g) {
+    public void paint(Graphics g) {
         // Paint the board
     	board.paint(g);
         // Paint the pieces
-        synchronized (b.getAllPieces()) {
+        synchronized (board.getAllPieces()) {
             for (Iterator<Piece> iter = board.getAllPieces().iterator(); iter.hasNext();) {
                 Piece piece = iter.next();
                 piece.paint(g, piece.getRectangle());

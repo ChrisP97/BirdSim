@@ -16,7 +16,8 @@ public class Grain extends Piece {
     /**
      * Constructs a <code>RoundPiece</code>.
      **/
-    public Grain() {
+    public Grain(Board board) {
+    	this.board = board;
     }
     
     public void deplete(){
