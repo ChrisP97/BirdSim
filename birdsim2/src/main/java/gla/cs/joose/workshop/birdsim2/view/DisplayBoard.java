@@ -20,7 +20,7 @@ import gla.cs.joose.workshop.birdsim2.Bird;
 import gla.cs.joose.workshop.birdsim2.Piece;
 import gla.cs.joose.workshop.birdsim2.Board;
 
-public class DisplayBoard extends JPanel implements Observer{
+public class DisplayBoard extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
 	public Board board;
@@ -62,10 +62,7 @@ public class DisplayBoard extends JPanel implements Observer{
 
 
 
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		repaint();
-	}
+	
 
     
     

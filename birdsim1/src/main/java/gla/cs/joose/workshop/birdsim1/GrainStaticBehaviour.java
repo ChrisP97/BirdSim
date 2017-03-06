@@ -1,7 +1,5 @@
 package gla.cs.joose.workshop.birdsim1;
 
-import java.util.Random;
-
 public class GrainStaticBehaviour implements MoveBehaviour{
 	
 	

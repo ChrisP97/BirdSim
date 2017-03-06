@@ -2,7 +2,6 @@ package gla.cs.joose.workshop.birdsim1.view;
 
 import java.awt.event.ActionEvent;
 
-import gla.cs.joose.workshop.birdsim1.Board;
 
 public class StarveBirdsListener extends BoardListener {
 

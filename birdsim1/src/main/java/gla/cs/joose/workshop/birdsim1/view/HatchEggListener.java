@@ -1,8 +1,6 @@
 package gla.cs.joose.workshop.birdsim1.view;
 
 import java.awt.event.ActionEvent;
-import gla.cs.joose.workshop.birdsim1.Board;
-import gla.cs.joose.workshop.birdsim1.Bird;
 
 public class HatchEggListener extends BoardListener{
 	

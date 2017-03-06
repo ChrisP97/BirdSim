@@ -3,7 +3,6 @@ package gla.cs.joose.workshop.birdsim1;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
@@ -24,10 +23,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import gla.cs.joose.workshop.birdsim1.BirdBehaviour;
-import gla.cs.joose.workshop.birdsim1.Bird;
-import gla.cs.joose.workshop.birdsim1.Grain;
-import gla.cs.joose.workshop.birdsim1.Piece;
 import gla.cs.joose.workshop.birdsim1.view.BoardListener;
 import gla.cs.joose.workshop.birdsim1.view.DisplayBoard;
 
@@ -87,21 +82,10 @@ public class Board extends Observable {
 		super.notifyObservers();
 	}
 
-	public void setBirdBehaviour(MoveBehaviour b) {
-		birdBehaviour = b;
-	}
-
-	public void setGrainBehaviour(MoveBehaviour b) {
-		grainBehaviour = b;
-	}
 	public DisplayBoard getDisplay(){
 		return display;
 	}
 
-	// public void update(){
-	// setChanged();
-	// notifyObservers();
-	// }
 
 	/**
 	 * Creates a board with the given number of rows and columns. This board is
@@ -209,7 +193,6 @@ public class Board extends Observable {
 		Bird bird = new Bird();
 		birdBehaviour = new BirdBehaviour(thisBoard, bird);
 		bird.setBehaviour(birdBehaviour);
-//		birdBehaviour.setBirdToBehaviour(bird);
 		registerBirdObserver(bird);
 		Thread thread = new Thread(bird);
 
@@ -217,9 +200,6 @@ public class Board extends Observable {
 		int randCol = rand.nextInt(((getColumns() - 3)+1)+0);
 //
 		place(bird, randRow, randCol);
-//		birdBehaviour.move();
-//		bird.setDraggable(false);
-//		bird.setSpeed(20);
 		updateStock();
 		setChanged();
 		notifyObservers();
@@ -715,48 +695,3 @@ public class Board extends Observable {
 	}
 }
 
-// -------------------------------------------------- inner class DisplayPanel
-//
-// class DisplayPanel extends JPanel {
-// private static final long serialVersionUID = 1L;
-//
-// /**
-// * Repaints this Board and everything on it.
-// *
-// * @param g
-// * The Graphics context on which this board is painted.
-// */
-// public void update(Graphics g) {
-// paint(g);
-// }
-//
-// /**
-// * Repaints this Board and everything on it.
-// *
-// * @param g
-// * The Graphics context on which this board is painted.
-// */
-// public void paint(Graphics g) {
-// // Paint the board
-// thisBoard.paint(g);
-// // Paint the pieces
-// synchronized (allPieces) {
-// for (Iterator<Piece> iter = allPieces.iterator(); iter.hasNext();) {
-// Piece piece = iter.next();
-// piece.paint(g, piece.getRectangle());
-// }
-// }
-// }
-// } // end inner class DisplayPanel
-//
-// /**
-// * @return
-// */
-// public int[] getSelectedSquare() {
-// return selectedSquare;
-// }
-//
-// public void setSelectedSquare(int[] selection) {
-// selectedSquare = selection;
-// }
-// }
