@@ -56,7 +56,7 @@ public class Bird extends Piece {
 	public void run() {
 		while(true){
 			behave.move();
-		}
+		}	
 	}
 
 	@Override

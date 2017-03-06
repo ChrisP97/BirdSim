@@ -7,7 +7,7 @@ import gla.cs.joose.workshop.birdsim1.Board;
 public class FeedBirdsListener extends BoardListener {
 
 	public FeedBirdsListener() {
-		super("Starve Birds");
+		super("Feed Birds");
 	}
 
 	@Override

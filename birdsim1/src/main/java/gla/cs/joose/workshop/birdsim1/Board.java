@@ -209,15 +209,17 @@ public class Board extends Observable {
 		registerBirdObserver(bird);
 		Thread thread = new Thread(bird);
 
-//		int randRow = rand.nextInt(((getRows() - 3)+1)+0);
-//		int randCol = rand.nextInt(((getColumns() - 3)+1)+0);
+		int randRow = rand.nextInt(((getRows() - 3)+1)+0);
+		int randCol = rand.nextInt(((getColumns() - 3)+1)+0);
 //
-//		place(bird, randRow, randCol);
+		place(bird, randRow, randCol);
+//		birdBehaviour.move();
 //		bird.setDraggable(false);
 //		bird.setSpeed(20);
 		updateStock();
 		setChanged();
 		notifyObservers();
+		
 
 		thread.start();
 	}
