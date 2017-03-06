@@ -3,7 +3,6 @@ package gla.cs.joose.workshop.birdsim2;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
@@ -94,14 +93,10 @@ public class Board extends Observable {
 	public void setGrainBehaviour(MoveBehaviour b) {
 		grainBehaviour = b;
 	}
-	public DisplayBoard getDisplay(){
+
+	public DisplayBoard getDisplay() {
 		return display;
 	}
-
-	// public void update(){
-	// setChanged();
-	// notifyObservers();
-	// }
 
 	/**
 	 * Creates a board with the given number of rows and columns. This board is
@@ -162,14 +157,14 @@ public class Board extends Observable {
 		buttonPanel.add(noofBirdsLabel);
 		buttonPanel.add(noofGrainsLabel);
 		frame.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e){
+			public void windowClosing(WindowEvent e) {
 				scareBirds = true;
 				frame.dispose();
 				System.exit(0);
 			}
 		});
 		frame.pack();
-		frame.setSize(650,650);
+		frame.setSize(650, 650);
 		frame.setVisible(true);
 	}
 
@@ -207,44 +202,35 @@ public class Board extends Observable {
 	public void hatchEgg() {
 
 		Bird bird = new Bird();
+		// birdBehaviour = new MultiplyBirdBehaviour(thisBoard, bird);
 		birdBehaviour = new BirdBehaviour(thisBoard, bird);
 		bird.setBehaviour(birdBehaviour);
-//		birdBehaviour.setBirdToBehaviour(bird);
 		registerBirdObserver(bird);
 		Thread thread = new Thread(bird);
 
-		int randRow = rand.nextInt(((getRows() - 3)+1)+0);
-		int randCol = rand.nextInt(((getColumns() - 3)+1)+0);
-//
+		int randRow = rand.nextInt(getRows() - 2);
+		int randCol = rand.nextInt(getColumns() - 2);
 		place(bird, randRow, randCol);
-//		birdBehaviour.move();
-//		bird.setDraggable(false);
-//		bird.setSpeed(20);
 		updateStock();
 		setChanged();
 		notifyObservers();
-		
 
 		thread.start();
 	}
-	
-	public void hatchEgg(int x, int y){
+
+	public void hatchEgg(int x, int y) {
 		Bird bird = new Bird();
+		// birdBehaviour = new MultiplyBirdBehaviour(thisBoard, bird);
 		birdBehaviour = new BirdBehaviour(thisBoard, bird);
 		bird.setBehaviour(birdBehaviour);
-//		birdBehaviour.setBirdToBehaviour(bird);
 		registerBirdObserver(bird);
 		Thread thread = new Thread(bird);
 
 		place(bird, x, y);
-//		birdBehaviour.move();
-//		bird.setDraggable(false);
-//		bird.setSpeed(20);
 		updateStock();
 		setChanged();
 		notifyObservers();
 		display.repaint();
-		
 
 		thread.start();
 	}
@@ -255,12 +241,12 @@ public class Board extends Observable {
 	public void feedBirds() {
 
 		Grain grain = new Grain();
-//		grainBehaviour = new GrainMovingBehaviour(thisBoard, grain);
+		// grainBehaviour = new GrainMovingBehaviour(thisBoard, grain);
 		grainBehaviour = new GrainStaticBehaviour(thisBoard, grain);
 		grain.setBehaviour(grainBehaviour);
 		registerGrainObserver(grain);
 		Thread thread = new Thread(grain);
-		
+
 		int randRow = rand.nextInt(getRows() - 2);
 		int randCol = rand.nextInt(getColumns() - 2);
 
@@ -268,7 +254,7 @@ public class Board extends Observable {
 		updateStock();
 		setChanged();
 		notifyObservers();
-		
+
 		thread.start();
 
 	}
@@ -287,26 +273,23 @@ public class Board extends Observable {
 		notifyObservers();
 		display.repaint();
 
-		
 	}
 
 	public void starveBirds() {
 		synchronized (allPieces) {
 			List<Piece> pieces = new ArrayList<>();
-			for (int i = 0; i<allPieces.size();i++) {
-				Piece p = allPieces.get(i); 
+			for (int i = 0; i < allPieces.size(); i++) {
+				Piece p = allPieces.get(i);
 				if (p instanceof Grain) {
 					p.starveBirds();
 					pieces.add(p);
-//					allPieces.remove(i);
-//					p.remove();
 					display.repaint();
 				}
 			}
 			allPieces.removeAll(pieces);
-			
+
 		}
-		
+
 		updateStock();
 		setChanged();
 		notifyObservers();
@@ -328,8 +311,8 @@ public class Board extends Observable {
 					noofbirds = noofbirds + 1;
 				}
 			}
-			noofBirdsLabel.setText("#birds: "+noofbirds);
-			noofGrainsLabel.setText("#grains: "+noofgrains);
+			noofBirdsLabel.setText("#birds: " + noofbirds);
+			noofGrainsLabel.setText("#grains: " + noofgrains);
 
 		}
 	}

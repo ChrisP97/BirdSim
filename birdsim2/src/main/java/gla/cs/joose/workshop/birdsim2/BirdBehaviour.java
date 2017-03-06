@@ -25,12 +25,6 @@ public class BirdBehaviour implements MoveBehaviour {
 	}
 
 	public void move() {
-		// while(true){
-		// bird.moveTo(10, 10);
-		// bird.redraw();
-		// board.notifyObservers();
-
-		// board.place(bird, randRow, randCol);
 		bird.setDraggable(false);
 		bird.setSpeed(20);
 		board.updateStockDisplay();
@@ -95,16 +89,8 @@ public class BirdBehaviour implements MoveBehaviour {
 							}
 						} else if (d.getColDist() == 0) {
 							// bingo -food found (eat and move away)
-							Random random = new Random();
 							Grain grain = (Grain) d.getTargetpiece();
-							if (grain.getBoard() != null) {
-								grain.escape();
-							}
-							// grain.deplete();
-							// grain.getBehaviour().move();
-							if (random.nextInt(2) + 1 == 1) {
-								board.hatchEgg(current_row, current_col);
-							}
+							grain.escape();
 							bird.moveTo(randRow, randCol);
 							bird.setSpeed(20);
 							movedone = true;
@@ -146,17 +132,8 @@ public class BirdBehaviour implements MoveBehaviour {
 							}
 						} else if (d.getRowDist() == 0) {
 							// bingo -food found (eat and move away)
-							Random random = new Random();
 							Grain grain = (Grain) d.getTargetpiece();
-							if(grain.getBoard() != null){
-								grain.escape();
-							}
-							
-							// grain.deplete();
-							// grain.getBehaviour().move();
-							if (random.nextInt(2) + 1 == 1) {
-								board.hatchEgg(current_row, current_col);
-							}
+							grain.escape();
 							bird.moveTo(randRow, randCol);
 							bird.setSpeed(20);
 							movedone = true;
@@ -167,7 +144,6 @@ public class BirdBehaviour implements MoveBehaviour {
 			}
 			if (!movedone) {
 				bird.moveTo(randRow, randCol);
-				// movedone = true;
 			}
 		}
 		bird.remove();

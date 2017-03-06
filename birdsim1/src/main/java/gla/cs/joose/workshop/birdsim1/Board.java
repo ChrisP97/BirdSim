@@ -82,10 +82,9 @@ public class Board extends Observable {
 		super.notifyObservers();
 	}
 
-	public DisplayBoard getDisplay(){
+	public DisplayBoard getDisplay() {
 		return display;
 	}
-
 
 	/**
 	 * Creates a board with the given number of rows and columns. This board is
@@ -146,14 +145,14 @@ public class Board extends Observable {
 		buttonPanel.add(noofBirdsLabel);
 		buttonPanel.add(noofGrainsLabel);
 		frame.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e){
+			public void windowClosing(WindowEvent e) {
 				scareBirds = true;
 				frame.dispose();
 				System.exit(0);
 			}
 		});
 		frame.pack();
-		frame.setSize(650,650);
+		frame.setSize(650, 650);
 		frame.setVisible(true);
 	}
 
@@ -196,14 +195,12 @@ public class Board extends Observable {
 		registerBirdObserver(bird);
 		Thread thread = new Thread(bird);
 
-		int randRow = rand.nextInt(((getRows() - 3)+1)+0);
-		int randCol = rand.nextInt(((getColumns() - 3)+1)+0);
-//
+		int randRow = rand.nextInt(getRows() - 2);
+		int randCol = rand.nextInt(getColumns() - 2);
 		place(bird, randRow, randCol);
 		updateStock();
 		setChanged();
 		notifyObservers();
-		
 
 		thread.start();
 	}
@@ -214,12 +211,12 @@ public class Board extends Observable {
 	public void feedBirds() {
 
 		Grain grain = new Grain();
-//		grainBehaviour = new GrainMovingBehaviour(thisBoard, grain);
+		// grainBehaviour = new GrainMovingBehaviour(thisBoard, grain);
 		grainBehaviour = new GrainStaticBehaviour(thisBoard, grain);
 		grain.setBehaviour(grainBehaviour);
 		registerGrainObserver(grain);
 		Thread thread = new Thread(grain);
-		
+
 		int randRow = rand.nextInt(getRows() - 2);
 		int randCol = rand.nextInt(getColumns() - 2);
 
@@ -227,7 +224,7 @@ public class Board extends Observable {
 		updateStock();
 		setChanged();
 		notifyObservers();
-		
+
 		thread.start();
 
 	}
@@ -246,26 +243,23 @@ public class Board extends Observable {
 		notifyObservers();
 		display.repaint();
 
-		
 	}
 
 	public void starveBirds() {
 		synchronized (allPieces) {
 			List<Piece> pieces = new ArrayList<>();
-			for (int i = 0; i<allPieces.size();i++) {
-				Piece p = allPieces.get(i); 
+			for (int i = 0; i < allPieces.size(); i++) {
+				Piece p = allPieces.get(i);
 				if (p instanceof Grain) {
 					p.starveBirds();
 					pieces.add(p);
-//					allPieces.remove(i);
-//					p.remove();
 					display.repaint();
 				}
 			}
 			allPieces.removeAll(pieces);
-			
+
 		}
-		
+
 		updateStock();
 		setChanged();
 		notifyObservers();
@@ -287,8 +281,8 @@ public class Board extends Observable {
 					noofbirds = noofbirds + 1;
 				}
 			}
-			noofBirdsLabel.setText("#birds: "+noofbirds);
-			noofGrainsLabel.setText("#grains: "+noofgrains);
+			noofBirdsLabel.setText("#birds: " + noofbirds);
+			noofGrainsLabel.setText("#grains: " + noofgrains);
 
 		}
 	}
@@ -694,4 +688,3 @@ public class Board extends Observable {
 		}
 	}
 }
-

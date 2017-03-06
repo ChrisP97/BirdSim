@@ -1,21 +1,22 @@
-package gla.cs.joose.workshop.birdsim1;
+package gla.cs.joose.workshop.birdsim2;
 
 import java.util.Random;
 
-import gla.cs.joose.workshop.birdsim1.Board;
-import gla.cs.joose.workshop.birdsim1.Bird;
-import gla.cs.joose.workshop.birdsim1.Grain;
-import gla.cs.joose.workshop.birdsim1.Piece;
-import gla.cs.joose.workshop.birdsim1.util.Distance;
-import gla.cs.joose.workshop.birdsim1.util.DistanceMgr;
+import gla.cs.joose.workshop.birdsim2.Board;
+import gla.cs.joose.workshop.birdsim2.Bird;
+import gla.cs.joose.workshop.birdsim2.Grain;
+import gla.cs.joose.workshop.birdsim2.Piece;
+import gla.cs.joose.workshop.birdsim2.util.Distance;
+import gla.cs.joose.workshop.birdsim2.util.DistanceMgr;
 
-public class BirdBehaviour implements MoveBehaviour {
+public class MultiplyBirdBehaviour implements MoveBehaviour {
+
 	Bird bird;
 	Board board;
 	static Random rand = new Random();
 	boolean scareBirds = false;
 
-	public BirdBehaviour(Board board, Bird bird) {
+	public MultiplyBirdBehaviour(Board board, Bird bird) {
 		this.board = board;
 		this.bird = bird;
 	}
@@ -89,8 +90,14 @@ public class BirdBehaviour implements MoveBehaviour {
 							}
 						} else if (d.getColDist() == 0) {
 							// bingo -food found (eat and move away)
+							Random random = new Random();
 							Grain grain = (Grain) d.getTargetpiece();
-							grain.escape();
+							if (grain.getBoard() != null) {
+								grain.escape();
+							}
+							if (random.nextInt(2) + 1 == 1) {
+								board.hatchEgg(current_row, current_col);
+							}
 							bird.moveTo(randRow, randCol);
 							bird.setSpeed(20);
 							movedone = true;
@@ -132,8 +139,15 @@ public class BirdBehaviour implements MoveBehaviour {
 							}
 						} else if (d.getRowDist() == 0) {
 							// bingo -food found (eat and move away)
+							Random random = new Random();
 							Grain grain = (Grain) d.getTargetpiece();
-							grain.escape();
+							if (grain.getBoard() != null) {
+								grain.escape();
+							}
+
+							if (random.nextInt(2) + 1 == 1) {
+								board.hatchEgg(current_row, current_col);
+							}
 							bird.moveTo(randRow, randCol);
 							bird.setSpeed(20);
 							movedone = true;
