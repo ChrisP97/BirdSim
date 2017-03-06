@@ -16,13 +16,15 @@ public class Grain extends Piece {
     /**
      * Constructs a <code>RoundPiece</code>.
      **/
-    public Grain(Board board) {
-    	this.board = board;
+    public Grain() {
+    	
     }
     
     public void deplete(){
     	perches = perches +1;
     	remaining -= 0.05f;
+    	behave.move();
+    	board.getDisplay().repaint();
     }
     
         
@@ -52,14 +54,21 @@ public class Grain extends Piece {
 	public void starveBirds(){
 		starveBirds = true;
 	}
+	public void escape(){
+		behave.move();
+		deplete();
+		
+	}
 
 	@Override
 	public void run() {
 		while(!starveBirds){
-			behave.move();
+//			behave.move();
 		}
 		board.deleteObserver(this);
 		remove();
+		board.updateStockDisplay();
+		board.getDisplay().repaint();
 		
 	}
 

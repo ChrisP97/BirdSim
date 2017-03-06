@@ -96,8 +96,9 @@ public class BirdBehaviour implements MoveBehaviour {
 					} else if (d.getColDist() == 0) {
 						// bingo -food found (eat and move away)
 						Grain grain = (Grain) d.getTargetpiece();
-						grain.deplete();
-						grain.getBehaviour().move();
+						grain.escape();
+//						grain.deplete();
+//						grain.getBehaviour().move();
 						bird.moveTo(randRow, randCol);
 						bird.setSpeed(20);
 						movedone = true;
@@ -140,8 +141,9 @@ public class BirdBehaviour implements MoveBehaviour {
 					} else if (d.getRowDist() == 0) {
 						// bingo -food found (eat and move away)
 						Grain grain = (Grain) d.getTargetpiece();
-						grain.deplete();
-						grain.getBehaviour().move();
+						grain.escape();
+//						grain.deplete();
+//						grain.getBehaviour().move();
 						bird.moveTo(randRow, randCol);
 						bird.setSpeed(20);
 						movedone = true;
@@ -157,6 +159,7 @@ public class BirdBehaviour implements MoveBehaviour {
 		}
 		bird.remove();
 		board.updateStockDisplay();
+		board.getDisplay().repaint();
 	}
 
 	public void setScareBirds(boolean boo) {

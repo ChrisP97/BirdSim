@@ -232,14 +232,23 @@ public class Board extends Observable {
 	 */
 	public void feedBirds() {
 
-		Grain grain = new Grain(thisBoard);
-		grainBehaviour.setGrainToBehaviour(grain);
+		Grain grain = new Grain();
+		grainBehaviour = new GrainMovingBehaviour(thisBoard, grain);
+//		grainBehaviour = new GrainStaticBehaviour(thisBoard, grain);
+//		grainBehaviour.setGrainToBehaviour(grain);
 		grain.setBehaviour(grainBehaviour);
 		registerGrainObserver(grain);
+		Thread thread = new Thread(grain);
+		
 		int randRow = rand.nextInt(getRows() - 2);
 		int randCol = rand.nextInt(getColumns() - 2);
 
 		place(grain, randRow, randCol);
+		updateStock();
+		setChanged();
+		notifyObservers();
+		
+		thread.start();
 
 	}
 
@@ -248,9 +257,16 @@ public class Board extends Observable {
 			for (Piece p : allPieces) {
 				if (p instanceof Bird) {
 					p.scareBird();
+					display.repaint();
 				}
 			}
 		}
+		updateStock();
+		setChanged();
+		notifyObservers();
+		display.repaint();
+
+		
 	}
 
 	public void starveBirds() {
@@ -258,9 +274,14 @@ public class Board extends Observable {
 			for (Piece p : allPieces) {
 				if (p instanceof Grain) {
 					p.starveBirds();
+					display.repaint();
 				}
 			}
 		}
+		updateStock();
+		setChanged();
+		notifyObservers();
+		display.repaint();
 	}
 
 	/**
@@ -278,6 +299,8 @@ public class Board extends Observable {
 					noofbirds = noofbirds + 1;
 				}
 			}
+			noofBirdsLabel.setText("#birds: "+noofbirds);
+			noofGrainsLabel.setText("#grains: "+noofgrains);
 
 		}
 	}
@@ -521,6 +544,7 @@ public class Board extends Observable {
 		synchronized (allPieces) {
 			allPieces.remove(piece);
 		}
+		updateStock();
 		piece.removeHelper();
 		return true;
 	}

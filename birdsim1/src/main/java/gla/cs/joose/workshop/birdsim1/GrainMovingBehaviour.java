@@ -9,7 +9,8 @@ public class GrainMovingBehaviour implements MoveBehaviour {
 	Board board;
 	Grain grain;
 	
-	public GrainMovingBehaviour(Board board){
+	public GrainMovingBehaviour(Board board, Grain grain){
+		this.grain = grain;
 		this.board = board;
 	}
 	
@@ -18,6 +19,9 @@ public class GrainMovingBehaviour implements MoveBehaviour {
         int randColf= rand.nextInt(board.getColumns() - 2);
         grain.moveTo(randRowf, randColf);
         grain.setSpeed(10);
+        if (grain.getRemaining() == 0.0){
+        	grain.remove();
+        }
     }
 
 	public void setScareBirds(boolean boo) {
