@@ -12,6 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
@@ -233,9 +234,8 @@ public class Board extends Observable {
 	public void feedBirds() {
 
 		Grain grain = new Grain();
-		grainBehaviour = new GrainMovingBehaviour(thisBoard, grain);
-//		grainBehaviour = new GrainStaticBehaviour(thisBoard, grain);
-//		grainBehaviour.setGrainToBehaviour(grain);
+//		grainBehaviour = new GrainMovingBehaviour(thisBoard, grain);
+		grainBehaviour = new GrainStaticBehaviour(thisBoard, grain);
 		grain.setBehaviour(grainBehaviour);
 		registerGrainObserver(grain);
 		Thread thread = new Thread(grain);
@@ -271,13 +271,21 @@ public class Board extends Observable {
 
 	public void starveBirds() {
 		synchronized (allPieces) {
-			for (Piece p : allPieces) {
+			List<Piece> pieces = new ArrayList<>();
+			for (int i = 0; i<allPieces.size();i++) {
+				Piece p = allPieces.get(i); 
 				if (p instanceof Grain) {
 					p.starveBirds();
+					pieces.add(p);
+//					allPieces.remove(i);
+//					p.remove();
 					display.repaint();
 				}
 			}
+			allPieces.removeAll(pieces);
+			
 		}
+		
 		updateStock();
 		setChanged();
 		notifyObservers();
