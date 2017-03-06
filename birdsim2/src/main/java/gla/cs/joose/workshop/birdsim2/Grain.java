@@ -26,6 +26,7 @@ public class Grain extends Piece {
 		if (board != null) {
 			board.getDisplay().repaint();
 		}
+		
 	}
 
 	public float getRemaining() {
@@ -63,7 +64,6 @@ public class Grain extends Piece {
 	public void escape() {
 		behave.move();
 		deplete();
-
 	}
 
 	@Override

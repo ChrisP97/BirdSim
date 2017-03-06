@@ -18,7 +18,7 @@ import gla.cs.joose.workshop.birdsim2.Board;
  * line 552,553
  */
 public abstract class Piece implements Observer, Runnable{
-    protected Board board = null;
+    protected Board board;
     private int row = -1;
     private int column = -1;
     private boolean moving = false;
@@ -404,7 +404,10 @@ public abstract class Piece implements Observer, Runnable{
             newRect.x = x;
             newRect.y = y;
             redraw(oldRect.union(newRect));
-            board.getDisplay().repaint();
+            if(board != null){
+            	board.getDisplay().repaint();
+            }
+            
         }
         moving = false;
         if (canMoveTo(newRow, newColumn)) {
@@ -480,7 +483,7 @@ public abstract class Piece implements Observer, Runnable{
      */
     public void redraw(Rectangle rect) {
 //        board.setChanged();
-        board.notifyObservers(rect);
+//        board.notifyObservers(rect);
         try {
             Thread.sleep(PAUSE_MS);
         }
