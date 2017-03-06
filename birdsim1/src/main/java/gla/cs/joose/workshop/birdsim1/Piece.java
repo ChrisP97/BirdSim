@@ -404,6 +404,7 @@ public abstract class Piece implements Observer, Runnable{
             newRect.x = x;
             newRect.y = y;
             redraw(oldRect.union(newRect));
+            board.getDisplay().repaint();
         }
         moving = false;
         if (canMoveTo(newRow, newColumn)) {

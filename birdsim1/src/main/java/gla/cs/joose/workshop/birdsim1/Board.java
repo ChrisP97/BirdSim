@@ -93,6 +93,9 @@ public class Board extends Observable {
 	public void setGrainBehaviour(MoveBehaviour b) {
 		grainBehaviour = b;
 	}
+	public DisplayBoard getDisplay(){
+		return display;
+	}
 
 	// public void update(){
 	// setChanged();
