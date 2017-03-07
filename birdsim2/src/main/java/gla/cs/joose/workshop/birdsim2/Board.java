@@ -23,7 +23,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import gla.cs.joose.workshop.birdsim2.BirdBehaviour;
 import gla.cs.joose.workshop.birdsim2.Bird;
 import gla.cs.joose.workshop.birdsim2.Grain;
 import gla.cs.joose.workshop.birdsim2.Piece;
@@ -202,8 +201,8 @@ public class Board extends Observable {
 	public void hatchEgg() {
 
 		Bird bird = new Bird();
-		// birdBehaviour = new MultiplyBirdBehaviour(thisBoard, bird);
-		birdBehaviour = new BirdBehaviour(thisBoard, bird);
+		birdBehaviour = new MultiplyBirdBehaviour(thisBoard, bird);
+//		birdBehaviour = new BirdBehaviour(thisBoard, bird);
 		bird.setBehaviour(birdBehaviour);
 		registerBirdObserver(bird);
 		Thread thread = new Thread(bird);
@@ -220,8 +219,8 @@ public class Board extends Observable {
 
 	public void hatchEgg(int x, int y) {
 		Bird bird = new Bird();
-		// birdBehaviour = new MultiplyBirdBehaviour(thisBoard, bird);
-		birdBehaviour = new BirdBehaviour(thisBoard, bird);
+		birdBehaviour = new MultiplyBirdBehaviour(thisBoard, bird);
+//		birdBehaviour = new BirdBehaviour(thisBoard, bird);
 		bird.setBehaviour(birdBehaviour);
 		registerBirdObserver(bird);
 		Thread thread = new Thread(bird);
