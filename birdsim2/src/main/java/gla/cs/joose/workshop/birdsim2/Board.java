@@ -85,13 +85,7 @@ public class Board extends Observable {
 		super.notifyObservers();
 	}
 
-	public void setBirdBehaviour(MoveBehaviour b) {
-		birdBehaviour = b;
-	}
-
-	public void setGrainBehaviour(MoveBehaviour b) {
-		grainBehaviour = b;
-	}
+	
 
 	public DisplayBoard getDisplay() {
 		return display;
@@ -235,13 +229,13 @@ public class Board extends Observable {
 	}
 
 	/**
-	 * Creates a new grain and ???
+	 * Creates a new grain and starts it
 	 */
 	public void feedBirds() {
 
 		Grain grain = new Grain();
-		// grainBehaviour = new GrainMovingBehaviour(thisBoard, grain);
-		grainBehaviour = new GrainStaticBehaviour(thisBoard, grain);
+		grainBehaviour = new GrainMovingBehaviour(thisBoard, grain);
+//		grainBehaviour = new GrainStaticBehaviour(thisBoard, grain);
 		grain.setBehaviour(grainBehaviour);
 		registerGrainObserver(grain);
 		Thread thread = new Thread(grain);

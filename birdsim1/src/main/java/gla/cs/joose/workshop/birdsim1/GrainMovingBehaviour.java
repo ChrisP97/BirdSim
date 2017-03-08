@@ -18,8 +18,9 @@ public class GrainMovingBehaviour implements MoveBehaviour {
         int randRowf = rand.nextInt(board.getRows() - 2);
         int randColf= rand.nextInt(board.getColumns() - 2);
         grain.moveTo(randRowf, randColf);
+        board.notifyObservers();
         grain.setSpeed(10);
-        if (grain.getRemaining() == 0.0){
+        if (grain.getRemaining() <= 0.0){
         	grain.remove();
         }
     }

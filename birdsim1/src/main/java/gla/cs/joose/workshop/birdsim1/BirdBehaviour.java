@@ -90,7 +90,9 @@ public class BirdBehaviour implements MoveBehaviour {
 						} else if (d.getColDist() == 0) {
 							// bingo -food found (eat and move away)
 							Grain grain = (Grain) d.getTargetpiece();
-							grain.escape();
+							if(grain.getBoard() != null){
+								grain.escape();
+							}
 							bird.moveTo(randRow, randCol);
 							bird.setSpeed(20);
 							movedone = true;
@@ -133,7 +135,9 @@ public class BirdBehaviour implements MoveBehaviour {
 						} else if (d.getRowDist() == 0) {
 							// bingo -food found (eat and move away)
 							Grain grain = (Grain) d.getTargetpiece();
-							grain.escape();
+							if(grain.getBoard() != null){
+								grain.escape();
+							}
 							bird.moveTo(randRow, randCol);
 							bird.setSpeed(20);
 							movedone = true;
